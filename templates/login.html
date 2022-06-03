@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block body %}
+<script>
+    function disable() {
+        if (document.getElementById("nameId").value==="" || document.getElementById("passwdId").value==="") { 
+            document.getElementById('button').disabled = true; 
+        } else { 
+            console.log("test")
+            document.getElementById('button').disabled = false;
+        }
+    }
+</script>
+<div class="ui middle aligned center aligned grid">
+    <div class="column">
+        <h2 class="ui teal image header">
+            <div class="content">
+              {{ error }}
+              Log-in to your account
+            </div>
+          </h2>
+        <form class="ui large form" action="/login" method="POST">
+            <div class="ui stacked segment">
+            <div class="field">
+                <div class="ui left icon input">
+                <i class="user icon"></i>
+                <input id="nameId" type="text" name="username" placeholder="username" onkeyup="disable()">
+                </div>
+            </div>
+            <div class="field">
+                <div class="ui left icon input">
+                <i class="lock icon"></i>
+                <input id="passwdId" type="password" name="password" placeholder="Password" onkeyup="disable()">
+                </div>
+            </div>
+            <button id="button" class="ui fluid large teal submit button" disabled>Login</button>
+            </div>
+
+            {% if error %}
+            <div class="ui negative message">
+                {{ error }}
+            </div>
+            {% endif %}
+
+        </form>
+        <div class="ui message">
+            New to us? <a href="/signup">Sign Up</a>
+        </div>
+</div>
+</div>
+{% endblock %}
