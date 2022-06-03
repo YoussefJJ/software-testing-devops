@@ -18,11 +18,26 @@ def getUser(username):
     connection.close()
     return user
 
-def checkUser(username,password):
+def checkUserCredentials(username,password):
     database_filename = os.environ.get('DATABASE_FILENAME')
     connection = sqlite3.connect(database_filename, check_same_thread=False)
     cur = connection.cursor()
     cur.execute("SELECT * FROM User WHERE USERNAME=? AND PASSWORD=?", (username,password))
     user = cur.fetchone()
     connection.close()
-    return user
+    if user:
+        return True
+    else:
+        return False
+
+def checkUserExists(username):
+    database_filename = os.environ.get('DATABASE_FILENAME')
+    connection = sqlite3.connect(database_filename, check_same_thread=False)
+    cur = connection.cursor()
+    cur.execute("SELECT * FROM User WHERE USERNAME=?", (username,))
+    user = cur.fetchone()
+    connection.close()
+    if user:
+        return True
+    else:
+        return False

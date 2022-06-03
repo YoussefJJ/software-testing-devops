@@ -2,7 +2,7 @@ import os
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
-from Auth import addUser, checkUser, getUser
+from Auth import addUser, checkUser, checkUserExists, getUser
 
 from Todo import addTodo, deleteTodo, getTodoById, getTodos, updateTodo
 
@@ -52,9 +52,8 @@ def login():
     username = request.form.get("username")
     password = request.form.get("password")
     # check if username and password are correct
-    user = checkUser(username, password)
-    print(user)
-    if user:
+    user_exists = checkUserExists(username, password)
+    if user_exists:
         session['username'] = username
         return redirect(url_for("home"))
     error = "Invalid credentials"
