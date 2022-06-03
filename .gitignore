@@ -3,3 +3,4 @@ db.sqlite
 __pycache__
 flask_session
 .pytest_cache
+.coverage
