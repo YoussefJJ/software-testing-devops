@@ -1,7 +1,7 @@
 import os
 import sqlite3
 import sys
-sys.path.append( '../flask-todo' )
+# sys.path.append( '../flask-todo' )
 
 from Auth import addUser, checkUserCredentials, checkUserExists, getUser
 import unittest
