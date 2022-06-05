@@ -1,5 +1,8 @@
 Flask
 Flask-SQLAlchemy
 Flask-Session
+pytest
+pytest-cov
+coverage
 selenium
 webdriver-manager

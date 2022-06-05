@@ -122,19 +122,19 @@ def test_logout(test_client):
     assert response.status_code == expected_status_code
     assert expected_title in response.data.decode("utf-8")
 
-def test_todo_list(test_client):
-    # Given
-    expected_status_code = 200
-    with test_client.session_transaction() as session:
-        session['username'] = "youssef"
-    expected_content = '''<p class="ui big header">1 | test</p>'''
-    expected_content2 = '''<p class="ui big header">2 | test2</p>'''
-    # When
-    response = test_client.get("/", follow_redirects=True)
-    # Then
-    assert response.status_code == expected_status_code
-    assert expected_content in response.data.decode("utf-8")
-    assert expected_content2 in response.data.decode("utf-8")
+# def test_todo_list(test_client):
+#     # Given
+#     expected_status_code = 200
+#     with test_client.session_transaction() as session:
+#         session['username'] = "youssef"
+#     expected_content = '''<p class="ui big header">1 | test</p>'''
+#     expected_content2 = '''<p class="ui big header">2 | test2</p>'''
+#     # When
+#     response = test_client.get("/", follow_redirects=True)
+#     # Then
+#     assert response.status_code == expected_status_code
+#     assert expected_content in response.data.decode("utf-8")
+#     assert expected_content2 in response.data.decode("utf-8")
 
 def test_add_todo(test_client):
     # Given
