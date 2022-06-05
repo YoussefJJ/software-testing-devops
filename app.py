@@ -87,11 +87,14 @@ def create_app(name, test=False):
     
     return app
     
-if __name__ == "__main__":
+def main(db_filename='db.sqlite'):
     app = create_app(__name__)
     sess = Session(app)
     app.secret_key = 'BAD_cxvxcvSECRET_KEY'
     app.config['SESSION_TYPE'] = 'filesystem'
-    os.environ['DATABASE_FILENAME'] = 'db.sqlite'
+    os.environ['DATABASE_FILENAME'] = db_filename
     sess.init_app(app)
-    app.run(debug=True)
+    app.run('0.0.0.0', debug=True)
+
+if __name__ == "__main__":
+    main()
