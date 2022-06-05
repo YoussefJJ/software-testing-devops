@@ -1,5 +1,6 @@
 import multiprocessing
 import os
+import sqlite3
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -9,12 +10,20 @@ from unittest import TestCase
 
 from app import main
 
+def deleteUser():
+    database_filename = 'db.sqlite'
+    connection = sqlite3.connect(database_filename)
+    connection.execute(
+        "DELETE FROM USER WHERE USERNAME LIKE ?;", ("test_user",))
+    connection.commit()
+    connection.close()
+
 DRIVER_PATH = 'chromedriver.exe'
 class TestEnd2End(TestCase):
     
     @classmethod
     def setUpClass(inst):
-        inst.app_process = multiprocessing.Process(target=main, args=('test_database.db',))
+        inst.app_process=multiprocessing.Process(target=main,name="App",args=('test_db.db',True,))
         inst.app_process.start()
         time.sleep(5)
         inst.start = time.time()
@@ -23,16 +32,21 @@ class TestEnd2End(TestCase):
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--start-maximized")
         chrome_options.add_argument('--disable-gpu')
-        inst.driver = webdriver.Chrome(chrome_options=chrome_options)
-        inst.driver.get('http://localhost:5000/')
+        #inst.driver = webdriver.Chrome('chromedriver.exe')
+        inst.driver = webdriver.Chrome(ChromeDriverManager().install())
+
+        #inst.driver.implicitly_wait(1)
+        print("Visiting home page")
+        inst.driver.get('http://127.0.0.1:5000/')
+        inst.driver.save_screenshot('./e2e_test/Screenshots/01_homepage.png')
 
     
-    def test_register(self):
-        pass
-        self.driver.get("http://localhost:5000")
+    def test_01_register(self):
+        self.driver.get("http://127.0.0.1:5000")
         print("Registering")
         register_link = self.driver.find_element(by=By.ID, value='register_link')
         register_link.click()
+        self.driver.implicitly_wait(1)
         print("fill in form")
         username_input = self.driver.find_element(by=By.ID, value='nameId')
         username_input.send_keys('test_user')
@@ -41,16 +55,17 @@ class TestEnd2End(TestCase):
         print("Submitting form")
         submit_button = self.driver.find_element(by=By.ID, value='button')
         submit_button.click()
-        expected_title = 'Todo App'
+        self.driver.implicitly_wait(1)
+        expected_title = 'To Do App'
         result_title = self.driver.find_element(by=By.ID, value='title')
         
-        assert expected_title == result_title.text
+        self.assertEqual(expected_title, result_title.text)
 
-    def test_login(self):
-        pass
-        self.driver.get("http://localhost:5000")
+    def test_02_login(self):
+        self.driver.get("http://127.0.0.1:5000/logout")
         print("Logging in")
         print("fill in form")
+        self.driver.implicitly_wait(1)
         username_input = self.driver.find_element(by=By.ID, value='nameId')
         username_input.send_keys('test_user')
         password_input = self.driver.find_element(by=By.ID, value='passwdId')
@@ -58,13 +73,15 @@ class TestEnd2End(TestCase):
         print("Submitting form")
         submit_button = self.driver.find_element(by=By.ID, value='button')
         submit_button.click()
-        expected_title = 'Todo App'
+        self.driver.implicitly_wait(1)
+        expected_title = 'To Do App'
         result_title = self.driver.find_element(by=By.ID, value='title')
-        
-        assert expected_title == result_title.text
+        print(result_title)
+        # self.driver.implicitly_wait(2)
+        self.assertEqual(expected_title, result_title.text)
     
-    def test_logout(self):
-        self.driver.get("http://localhost:5000")
+    def test_03_logout(self):
+        self.driver.get("http://127.0.0.1:5000/logout")
         print("Logging in")
         print("fill in form")
         username_input = self.driver.find_element(by=By.ID, value='nameId')
@@ -82,8 +99,8 @@ class TestEnd2End(TestCase):
         
         assert expected_title == result_title.text
 
-    def test_add_todo(self):
-        self.driver.get("http://localhost:5000")
+    def test_04_add_todo(self):
+        self.driver.get("http://127.0.0.1:5000/logout")
         print("Logging in")
         print("fill in form")
         username_input = self.driver.find_element(by=By.ID, value='nameId')
@@ -93,18 +110,20 @@ class TestEnd2End(TestCase):
         print("Submitting form")
         submit_button = self.driver.find_element(by=By.ID, value='button')
         submit_button.click()
+        self.driver.implicitly_wait(1)
+        nb_todos = len(self.driver.find_elements(by=By.CLASS_NAME, value='todo'))
         print("Adding todo")
         todo_input = self.driver.find_element(by=By.ID, value='todo_input')
         todo_input.send_keys('test_todo')
         submit_todo_button = self.driver.find_element(by=By.ID, value='submit_todo_button')
         submit_todo_button.click()
         expected_title = '1 | test_todo'
-        result = self.driver.find_element(by=By.CLASS_NAME, value='big')
+        result = len(self.driver.find_elements(by=By.CLASS_NAME, value='todo'))
         
-        assert expected_title == result.text
+        self.assertEqual(result, nb_todos + 1)
     
-    def test_delete_todo(self):
-        self.driver.get("http://localhost:5000")
+    def test_05_delete_todo(self):
+        self.driver.get("http://127.0.0.1:5000/logout")
         print("Logging in")
         print("fill in form")
         username_input = self.driver.find_element(by=By.ID, value='nameId')
@@ -116,20 +135,20 @@ class TestEnd2End(TestCase):
         submit_button.click()
         print("Adding todo")
         todo_input = self.driver.find_element(by=By.ID, value='todo_input')
-        todo_input.send_keys('test_todo')
+        todo_input.send_keys('test_todo_to_delete')
         submit_todo_button = self.driver.find_element(by=By.ID, value='submit_todo_button')
         submit_todo_button.click()
         time.sleep(2)
         print("Deleting todo")
-        delete_todo_button = self.driver.find_element(by=By.ID, value='delete_todo_button')
+        delete_todo_button = self.driver.find_elements(by=By.ID, value='delete_todo_button')[-1]
         delete_todo_button.click()
         time.sleep(1)
-        result_title = self.driver.find_elements(by=By.CLASS_NAME, value='big')
+        result_title = self.driver.find_elements(by=By.XPATH, value='//span[text()="test_todo_to_delete"]')
         
-        assert result_title == []
+        self.assertEqual(result_title, [])
     
-    def test_edit_todo(self):
-        self.driver.get("http://localhost:5000")
+    def test_06_edit_todo(self):
+        self.driver.get("http://127.0.0.1:5000/logout")
         print("Logging in")
         print("fill in form")
         username_input = self.driver.find_element(by=By.ID, value='nameId')
@@ -139,20 +158,21 @@ class TestEnd2End(TestCase):
         print("Submitting form")
         submit_button = self.driver.find_element(by=By.ID, value='button')
         submit_button.click()
+        self.driver.implicitly_wait(1)
         print("Adding todo")
         todo_input = self.driver.find_element(by=By.ID, value='todo_input')
-        todo_input.send_keys('test_todo')
+        todo_input.send_keys('test_todo_to_be_updated')
         submit_todo_button = self.driver.find_element(by=By.ID, value='submit_todo_button')
         submit_todo_button.click()
         time.sleep(1)
         print("Editing todo")
-        edit_todo_button = self.driver.find_element(by=By.ID, value='update_todo_button')
+        edit_todo_button = self.driver.find_elements(by=By.ID, value='update_todo_button')[-1]
         edit_todo_button.click()
         time.sleep(2)
         expected_state = 'Completed'
-        result = self.driver.find_element(by=By.ID, value='state')
+        result = self.driver.find_elements(by=By.ID, value='state')[-1]
         
-        assert result.text == expected_state
+        self.assertTrue(expected_state in result.text)
 
     @classmethod
     def tearDownClass(inst):
@@ -160,5 +180,6 @@ class TestEnd2End(TestCase):
         elapsedtime=inst.end-inst.start
         print("\n-------\nE2E test duration: ", "{:.2f}".format(elapsedtime), "seconds")
         inst.driver.quit()
-        inst.app4test_process.terminate()
-        os.remove('test_database.db')
+        inst.app_process.terminate()
+        deleteUser()
+        os.remove('test_db.db')

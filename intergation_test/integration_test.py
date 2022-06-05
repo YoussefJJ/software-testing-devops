@@ -169,24 +169,11 @@ def test_unauthorized_add_todo(test_client):
 def test_update_todo(test_client):
     # Given
     expected_status_code = 200
-    expected_completion_text = '''<div class="ui segment">
-                <p class="ui big header">1 | test</p>
-    
-                
-                <span class="ui green label">Completed</span>
-                
-    
-                <a class="ui blue button" href="/update/1">Update</a>
-                <a class="ui red button" href="/delete/1">Delete</a>
-            </div>'''
+    expected_completion_text = '''<span id="state" class="ui green label">Completed</span>'''
     with test_client.session_transaction() as session:
         session['username'] = "youssef"
-
-    data = {
-        "title": "updated title with id 1"
-    }
     # When
-    response = test_client.get("/update/1", data=data, follow_redirects=True)
+    response = test_client.get("/update/1", follow_redirects=True)
     # Then
     assert response.status_code == expected_status_code
     assert expected_completion_text in response.data.decode("utf-8")

@@ -5,12 +5,16 @@ from flask_sqlalchemy import SQLAlchemy
 from Auth import addUser, checkUserCredentials, checkUserExists, getUser
 
 from Todo import addTodo, deleteTodo, getTodoById, getTodos, updateTodo
+from db_initialize import create_db
 
 
 # /// = relative path, //// = absolute path
 def create_app(name, test=False):
-    
-    app = Flask(__name__)
+
+    if test:
+        app = Flask(name,template_folder='../templates')
+    else:
+        app = Flask(name, template_folder='templates')
 
 
     @app.route("/")
@@ -87,7 +91,9 @@ def create_app(name, test=False):
     
     return app
     
-def main(db_filename='db.sqlite'):
+def main(db_filename='db.sqlite', create=False):
+    if create:
+        create_db(db_filename)
     app = create_app(__name__)
     sess = Session(app)
     app.secret_key = 'BAD_cxvxcvSECRET_KEY'

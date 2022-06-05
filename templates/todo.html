@@ -19,7 +19,7 @@
     
             {% for todo in todo_list %}
             <div class="ui segment">
-                <p class="ui big header">{{todo[0] }} | {{ todo[1] }}</p>
+                <p class="ui big header todo">{{todo[0] }} | {{ todo[1] }}</p>
     
                 {% if todo[2] == False %}
                 <span id="state" class="ui gray label">Not Complete</span>
