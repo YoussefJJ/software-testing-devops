@@ -3,16 +3,16 @@
     {% block body %}
     <body>
         <div style="margin-top: 50px;" class="ui container">
-            <h1 class="ui center aligned header">To Do App</h1>
+            <h1 id="title" class="ui center aligned header">To Do App</h1>
     <form style="display: flex; flex-direction: row; justify-content: flex-end;" action="/logout">
-        <button class="ui green button">Logout</button>
+        <button id="logout_button" class="ui green button">Logout</button>
     </form>
             <form class="ui form" action="/add" method="post">
                 <div class="field">
                     <label>Todo Title</label>
-                    <input type="text" name="title" placeholder="Enter Todo..."><br>
+                    <input id="todo_input" type="text" name="title" placeholder="Enter Todo..."><br>
                 </div>
-                <button class="ui blue button" type="submit">Add</button>
+                <button id="submit_todo_button" class="ui blue button" type="submit">Add</button>
             </form>
     
             <hr>
@@ -22,13 +22,13 @@
                 <p class="ui big header">{{todo[0] }} | {{ todo[1] }}</p>
     
                 {% if todo[2] == False %}
-                <span class="ui gray label">Not Complete</span>
+                <span id="state" class="ui gray label">Not Complete</span>
                 {% else %}
-                <span class="ui green label">Completed</span>
+                <span id="state" class="ui green label">Completed</span>
                 {% endif %}
     
-                <a class="ui blue button" href="/update/{{ todo[0] }}">Update</a>
-                <a class="ui red button" href="/delete/{{ todo[0] }}">Delete</a>
+                <a id="update_todo_button" class="ui blue button" href="/update/{{ todo[0] }}">Update</a>
+                <a id="delete_todo_button" class="ui red button" href="/delete/{{ todo[0] }}">Delete</a>
             </div>
             {% endfor %}
         </div>
