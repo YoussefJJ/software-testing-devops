@@ -33,7 +33,7 @@ class TestEnd2End(TestCase):
         chrome_options.add_argument("--start-maximized")
         chrome_options.add_argument('--disable-gpu')
         #inst.driver = webdriver.Chrome('chromedriver.exe')
-        inst.driver = webdriver.Chrome(ChromeDriverManager().install())
+        inst.driver = webdriver.Chrome(chrome_options=chrome_options)
 
         #inst.driver.implicitly_wait(1)
         print("Visiting home page")
