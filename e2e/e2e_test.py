@@ -37,12 +37,12 @@ class TestEnd2End(TestCase):
 
         #inst.driver.implicitly_wait(1)
         print("Visiting home page")
-        inst.driver.get('http://127.0.0.1:5000/')
+        inst.driver.get('http://localhost:5000/')
         inst.driver.save_screenshot('./e2e_test/Screenshots/01_homepage.png')
 
     
     def test_01_register(self):
-        self.driver.get("http://127.0.0.1:5000")
+        self.driver.get("http://localhost:5000")
         print("Registering")
         register_link = self.driver.find_element(by=By.ID, value='register_link')
         register_link.click()
@@ -62,7 +62,7 @@ class TestEnd2End(TestCase):
         self.assertEqual(expected_title, result_title.text)
 
     def test_02_login(self):
-        self.driver.get("http://127.0.0.1:5000/logout")
+        self.driver.get("http://localhost:5000/logout")
         print("Logging in")
         print("fill in form")
         self.driver.implicitly_wait(1)
@@ -81,7 +81,7 @@ class TestEnd2End(TestCase):
         self.assertEqual(expected_title, result_title.text)
     
     def test_03_logout(self):
-        self.driver.get("http://127.0.0.1:5000/logout")
+        self.driver.get("http://localhost:5000/logout")
         print("Logging in")
         print("fill in form")
         username_input = self.driver.find_element(by=By.ID, value='nameId')
@@ -100,7 +100,7 @@ class TestEnd2End(TestCase):
         assert expected_title == result_title.text
 
     def test_04_add_todo(self):
-        self.driver.get("http://127.0.0.1:5000/logout")
+        self.driver.get("http://localhost:5000/logout")
         print("Logging in")
         print("fill in form")
         username_input = self.driver.find_element(by=By.ID, value='nameId')
@@ -123,7 +123,7 @@ class TestEnd2End(TestCase):
         self.assertEqual(result, nb_todos + 1)
     
     def test_05_delete_todo(self):
-        self.driver.get("http://127.0.0.1:5000/logout")
+        self.driver.get("http://localhost:5000/logout")
         print("Logging in")
         print("fill in form")
         username_input = self.driver.find_element(by=By.ID, value='nameId')
@@ -148,7 +148,7 @@ class TestEnd2End(TestCase):
         self.assertEqual(result_title, [])
     
     def test_06_edit_todo(self):
-        self.driver.get("http://127.0.0.1:5000/logout")
+        self.driver.get("http://localhost:5000/logout")
         print("Logging in")
         print("fill in form")
         username_input = self.driver.find_element(by=By.ID, value='nameId')
