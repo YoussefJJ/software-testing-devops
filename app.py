@@ -100,7 +100,7 @@ def main(db_filename='db.sqlite', create=False):
     app.config['SESSION_TYPE'] = 'filesystem'
     os.environ['DATABASE_FILENAME'] = db_filename
     sess.init_app(app)
-    app.run('0.0.0.0', debug=True)
+    app.run('0.0.0.0')
 
 if __name__ == "__main__":
     main()
