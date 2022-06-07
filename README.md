@@ -38,7 +38,9 @@ Four type of tests have been implemented in this app:
 Check the README.md file for each test to check the test cases and the code coverage
 
 ## CI/CD (Devops)
-The CI/CD Pipeline is as follows: 
+The CI/CD Pipeline is as follows:
+
+### First Workflow
 
 1. Run all tests (Unit, Integration and E2E tests)
 2. Build the Docker image and push it to Docker Hub
@@ -48,11 +50,18 @@ The CI/CD Pipeline is as follows:
     - Pull the new Docker image
     - Run a new container from the newly pulled docker image
 
-You can find the steps detailed in the [devops.yml file](https://github.com/YoussefJJ/software-testing-devops/blob/main/.github/workflows/devops.yaml)
+You can find the steps detailed in the [devops.yml](https://github.com/YoussefJJ/software-testing-devops/blob/main/.github/workflows/devops.yaml) file.
 
 The overall Pipeline Schema is shown in Github Actions as follows
 
 ![CI/CD Pipeline](/assets/cicd.png "CI/CD Pipeline")
+
+### Second Workflow
+
+The CI phase is pretty much the same as the first workflow. The deployment process is different as we use AWS ECS to deploy our app
+
+You can find the steps detailed in the [devops-ecs.yml](https://github.com/YoussefJJ/software-testing-devops/blob/main/.github/workflows/devops-ecs.yaml) file.
+
 
 ## Where to find the app?
 
