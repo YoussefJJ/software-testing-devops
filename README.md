@@ -8,7 +8,7 @@ This project is part of asoftware testing course in INSAT (National Institure of
 ## How does the app work?
 1. First when you open the app you will be greeted with a login screen as shown in the image below
 
-![Login Screen](/assets/login.png "Login Screen")
+![Login Screen](/assets/login_screen.png "Login Screen")
 
 2. Enter your credentials and press the submit button and if every thing works you will be redirected to the home page.
 
