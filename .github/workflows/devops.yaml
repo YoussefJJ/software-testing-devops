@@ -61,7 +61,7 @@ jobs:
     steps:
       - name: Deploy to EC2 container
         run: |
-          echo "${{ secrets.AWS_EC2_SECRET_KEY  }}" > private_key.pem
+          echo "${{ secrets.AWS_EC2_PRIVATE_KEY  }}" > private_key.pem
           chmod 400 private_key.pem
           ssh -o "StrictHostKeyChecking=no" -i "private_key.pem" ${{ secrets.AWS_EC2_USERNAME  }}@${{ secrets.AWS_EC2_HOSTNAME  }} ' 
           whoami
