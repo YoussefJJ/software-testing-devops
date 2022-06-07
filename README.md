@@ -32,7 +32,7 @@ Four type of tests have been implemented in this app:
 
 1. [Unit Tests](https://github.com/YoussefJJ/software-testing-devops/tree/main/unit%20test)
 2. [Integration Tests](https://github.com/YoussefJJ/software-testing-devops/tree/main/intergation_test)
-3. [E2E(End-to-End or system) Tests](https://github.com/YoussefJJ/software-testing-devops/tree/main/e2e)
+3. [E2E (End-to-End or system) Tests](https://github.com/YoussefJJ/software-testing-devops/tree/main/e2e)
 4. [UAT (User Acceptance Tests)](https://github.com/YoussefJJ/software-testing-devops/tree/main/UAT%20test)
 
 Check the README.md file for each test to check the test cases and the code coverage
@@ -56,5 +56,5 @@ The overall Pipeline Schema is shown in Github Actions as follows
 
 ## Where to find the app?
 
-If the EC2 instance is still running, you can use the simple app in [this link](http://54.249.164.48:5000/)
+If the EC2 instance is still running, you can use the simple app by clicking [this link](http://54.249.164.48:5000/)
 

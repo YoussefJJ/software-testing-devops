@@ -25,7 +25,7 @@ The overall scenario for integration tests are as follows:
 
 ## Test Results
 
-We can run these test with the following command
+We can run these tests with the following command
 
 ```bash
 $ coverage run -m pytest "intergation_test/integration_test.py"
