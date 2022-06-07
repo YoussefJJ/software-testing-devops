@@ -16,8 +16,17 @@ I ran the following tests as part of the unit tests scenario:
 10. Delete Todo
 
 # Test Results
+To run the tests, we use the following command
+
+`coverage run -m unittest "unit test/unit_test.py`
+
 Running these tests have provided the following results
 
 ![Unit Tests Results](/assets/unittest_result.png "Unit Tests Results")
 
-## Test coverage
+## Test Coverage
+We can check the coverage by typing the following command:
+
+`coverage report`
+
+![Unit Test Coverage](/assets/unittest_coverage.png "Unit Test Coverage")

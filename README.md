@@ -42,7 +42,11 @@ The CI/CD Pipeline is as follows:
 
 1. Run all tests (Unit, Integration and E2E tests)
 2. Build the Docker image and push it to Docker Hub
-3. Connect to running AWS EC2 instance, remove any existing running container and pull the new image and run a new container from it
+3. Deplot App to an Amazon Elastic Compute Cloud container:
+    - Launch AWS EC2 instance
+    - Remove any existing running container
+    - Pull the new Docker image
+    - Run a new container from the newly pulled docker image
 
 You can find the steps detailed in the [devops.yml file](https://github.com/YoussefJJ/software-testing-devops/blob/main/.github/workflows/devops.yaml)
 

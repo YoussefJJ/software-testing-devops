@@ -32,3 +32,10 @@ We can run these test with the following command
 It will give us the following output
 
 ![Integration Tests](/assets/integrationtest_result.png "Integration Tests")
+
+## Test Coverage
+We can check the coverage by typing the following command:
+
+`coverage report`
+
+![Integration Test Coverage](/assets/integ_coverage.png "Integration Test Coverage")
