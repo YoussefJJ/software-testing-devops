@@ -42,7 +42,7 @@ The CI/CD Pipeline is as follows:
 
 1. Run all tests (Unit, Integration and E2E tests)
 2. Build the Docker image and push it to Docker Hub
-3. Deplot App to an Amazon Elastic Compute Cloud container:
+3. Deploy App to an Amazon Elastic Compute Cloud container:
     - Launch AWS EC2 instance
     - Remove any existing running container
     - Pull the new Docker image
@@ -56,5 +56,5 @@ The overall Pipeline Schema is shown in Github Actions as follows
 
 ## Where to find the app?
 
-If the EC2 instance is still running, you can use the simple app in [this link](http:\\54.249.164.48:5000)
+If the EC2 instance is still running, you can use the simple app in [this link](http://54.249.164.48:5000/)
 
