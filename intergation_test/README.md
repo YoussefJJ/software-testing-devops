@@ -27,7 +27,9 @@ The overall scenario for integration tests are as follows:
 
 We can run these test with the following command
 
-`coverage run -m pytest "intergatuin_test/integration_test.py`
+```bash
+$ coverage run -m pytest "intergation_test/integration_test.py"
+```
 
 It will give us the following output
 
@@ -36,6 +38,8 @@ It will give us the following output
 ## Test Coverage
 We can check the coverage by typing the following command:
 
-`coverage report`
+```bash
+$ coverage report
+```
 
 ![Integration Test Coverage](/assets/integ_coverage.png "Integration Test Coverage")

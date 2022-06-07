@@ -15,7 +15,9 @@ Selenium was used to run the end-to-end tests but it needed a lot of tinkering n
 
 ## Test Results
 To run the system tests, execute the following command:
-`coverage run -m pytest e2e/e2e_test.py`
+```bash
+$ coverage run -m pytest e2e/e2e_test.py
+```
 
 After running the tests, the following will be outputted to the console:
 
@@ -24,6 +26,8 @@ After running the tests, the following will be outputted to the console:
 ## Test Coverage
 We can check the coverage by typing the following command:
 
-`coverage report`
+```bash
+$ coverage report
+```
 
 ![End-to-End Test Coverage](/assets/e2e_coverage.png "End-to-End Test Coverage")
